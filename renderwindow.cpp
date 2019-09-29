@@ -134,13 +134,13 @@ void RenderWindow::render()
                 glUseProgram(mShaderProgram[1]->getProgram());
                 glUniformMatrix4fv(vMatrixUniform1, 1, GL_TRUE, mCurrentCamera->mViewMatrix.constData());
                 glUniformMatrix4fv(pMatrixUniform1, 1, GL_TRUE, mCurrentCamera->mProjectionMatrix.constData());
-                glUniformMatrix4fv(mMatrixUniform1, 1, GL_TRUE, object->getModelMatrix().constData());
+                glUniformMatrix4fv(mMatrixUniform1, 1, GL_TRUE, object->mMatrix.constData());
                 glUniform1i(mTextureUniform, 1);
             } else {
                 glUseProgram(mShaderProgram[0]->getProgram());
                 glUniformMatrix4fv(vMatrixUniform0, 1, GL_TRUE, mCurrentCamera->mViewMatrix.constData());
                 glUniformMatrix4fv(pMatrixUniform0, 1, GL_TRUE, mCurrentCamera->mProjectionMatrix.constData());
-                glUniformMatrix4fv(mMatrixUniform0, 1, GL_TRUE, object->getModelMatrix().constData());
+                glUniformMatrix4fv(mMatrixUniform0, 1, GL_TRUE, object->mMatrix.constData());
             }
             object->draw();
         }

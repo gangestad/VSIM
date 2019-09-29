@@ -22,7 +22,9 @@ public:
 
     RenderWindow *mRenderWindow; //Just to be able to call checkForGLerrors()
 
-    bool getUseTextures = false;
+    bool getUseTextures();
+
+
 
 protected:
     std::vector<Vertex> mVertices;

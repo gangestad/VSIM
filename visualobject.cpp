@@ -16,5 +16,5 @@ void VisualObject::init()
 }
 
 bool VisualObject::getUseTextures(){
-
+ return false;
 }
