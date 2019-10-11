@@ -99,8 +99,9 @@ void RenderWindow::init() {
     VisualObject *temp = new XYZ();
     mVisualObjects.push_back(temp);
 
-    OctahedronBall *mBall = new OctahedronBall();
-    mVisualObjects.push_back(mBall);
+    pawn = new RollingBall();
+    mVisualObjects.push_back(pawn);
+    pawn->move(vec3(1.2, 10.5, 1));
 
     col = new Collision();
 
@@ -145,12 +146,9 @@ void RenderWindow::render() {
         }
         object->draw();
         if(TriangleSurface *obj = dynamic_cast<TriangleSurface *>(object)){
-            vec3 normal = col->getBallNormal(pawn->getPosition(), obj->getTrianglePoints());
-            if(normal.x != 0 && normal.y != 0 && normal.z != 0){
-
-            }
+            auto [normal, position] = col->getBallNormal(pawn->getPosition(), obj);
+            pawn->update(normal, position);
         }
-
     }
 
     //Calculate framerate before

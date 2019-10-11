@@ -12,6 +12,7 @@
 #include <QWindow>
 #include <vector>
 #include "octahedronball.h"
+#include "rollingball.h"
 #include "collision.h"
 class QOpenGLContext;
 class Shader;
@@ -49,7 +50,7 @@ private:
     bool playerCaught{false};
     std::vector<gsl::Vector3D> mSurfacePoints;
 
-    OctahedronBall *pawn;
+    RollingBall *pawn;
     Collision *col;
 
     TriangleSurface *mNPC;

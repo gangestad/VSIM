@@ -43,22 +43,6 @@ OctahedronBall::OctahedronBall(int n, float radius)
 //! final step of recursion.
 //!
 // added a radius modifier, super messy though, should probably do it in a different way
-vec3 OctahedronBall::velocity() const
-{
-    return mVelocity;
-}
-
-// Algoritme: Simulering av rullende ball - Ballsimulering.pdf
-// Forsøk på implementasjon av formel (7)
-// Beregne akselerasjonsvektor til ballen
-void OctahedronBall::calculateVelocity(vec3 normal, vec3 trianglePos){
-    vec3 N = normal * vec3::dot(-gsl::GRAVITY, normal);
-    vec3 distanceToTriangle = vec3::dot(trianglePos - getPosition(), normal);
-
-
-    mVelocity = vec3(normal.x * normal.z, normal.y*normal.z, pow(2, normal.z)-1) * gsl::GRAVITY;
-    mVelocity = mVelocity - gsl::GRAVITY * 0.016;
-}
 
 void OctahedronBall::createTriangle(const vec3 &v1, const vec3 &v2, const vec3 &v3)
 {
@@ -172,8 +156,4 @@ void OctahedronBall::draw()
 {
     glBindVertexArray(mVAO);
     glDrawArrays(GL_TRIANGLES, 0, mVertices.size());
-}
-
-void OctahedronBall::update(){
-
 }

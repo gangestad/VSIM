@@ -26,6 +26,8 @@ public:
     Vector3D operator*(GLfloat rhs) const;          // v * f
     float operator*(const Vector3D &v) const;       // Dot Product
     Vector3D operator^(const Vector3D &rhs) const;  // v x v  - cross product
+    bool operator ==(const Vector3D &rhs);
+    bool operator !=(const Vector3D &rhs);
 
     //Functions
     GLfloat length() const;
@@ -72,6 +74,9 @@ public:
     GLfloat x;
     GLfloat y;
     GLfloat z;
+
+
+
 };
 
 } // namespace gsl

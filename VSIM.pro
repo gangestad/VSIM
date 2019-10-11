@@ -1,7 +1,7 @@
 QT          += core gui widgets
 
 TEMPLATE    = app
-CONFIG      += c++11
+CONFIG      += c++17
 
 TARGET      = 3D-eksamen
 
@@ -29,7 +29,8 @@ SOURCES += main.cpp \
     camera.cpp \
     octahedronball.cpp \
     tree.cpp \
-    beziercurve.cpp
+    beziercurve.cpp \
+    rollingball.cpp
 
 HEADERS += \
     GSL/matrix2x2.h \
@@ -55,7 +56,8 @@ HEADERS += \
     camera.h \
     octahedronball.h \
     tree.h \
-    beziercurve.h
+    beziercurve.h \
+    rollingball.h
 
 FORMS += \
     mainwindow.ui

@@ -22,6 +22,14 @@ const Vector3D &Vector3D::operator=(const Vector3D &rhs) {
     return *this;
 }
 
+bool Vector3D::operator==(const Vector3D &rhs){
+    return(x==rhs.x && y==rhs.y && z==rhs.z);
+}
+
+bool Vector3D::operator!=(const Vector3D &rhs){
+    return (x!=rhs.x || y!=rhs.y || z!=rhs.z);
+}
+
 Vector3D Vector3D::operator+(const Vector3D &rhs) const {
     return {x + rhs.getX(), y + rhs.getY(), z + rhs.getZ()};
 }
@@ -63,6 +71,8 @@ float Vector3D::operator*(const Vector3D &v) const
 Vector3D Vector3D::operator^(const Vector3D &rhs) const {
     return {y * rhs.getZ() - z * rhs.getY(), z * rhs.getX() - x * rhs.getZ(), x * rhs.getY() - y * rhs.getX()};
 }
+
+
 
 GLfloat Vector3D::length() const {
     return std::sqrt(std::pow(x, 2.f) + std::pow(y, 2.f) + std::pow(z, 2.f));
