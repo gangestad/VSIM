@@ -38,7 +38,7 @@ vec3 Collision::getBallNormal(const vec3 &ballPos, std::vector<vec3> surface)
         vec3 baryc = barycentricCoordinates(ballPos, surface[i], surface[i+1], surface[i+2]);
         if(baryc.getX() >= 0 && baryc.getY() >= 0 && (baryc.getY() + baryc.getX()) <= 1){
             // Formula(6.2) from .pdf
-            normal = (surface[i+1] - surface[i])^(surface[i*2] - surface[i]);
+            normal = vec3::cross((surface[i+1] - surface[i]),(surface[i*2] - surface[i]));
             break;
         }
     }
