@@ -30,15 +30,18 @@ vec3 Collision::barycentricCoordinates(const vec3 &point, const vec3 &pointA, co
 
 // Algoritme: Simulering av rullende ball - Ballsimulering.pdf
 // Beregne normalvektor til ballen
-vec3 Collision::getBallNormal(const vec3 &ballPos, std::vector<vec3> surface)
+vec3 Collision::getBallNormal(const vec3 &ballPos, TriangleSurface *s)
 {
-    vec3 normal;
-    for(size_t i = 0; i < surface.size(); i+=3){
-        // Check every three surface points for the triangle
-        vec3 baryc = barycentricCoordinates(ballPos, surface[i], surface[i+1], surface[i+2]);
+    vec3 normal{0};
+    vec3 surfacePos{0};
+    std::vector<vec3> triangleSurfaces = s->getTrianglePoints();
+    for(size_t i = 0; i < triangleSurfaces.size(); i+=3){
+        // Check every three triangleSurfaces points for the triangle
+        vec3 baryc = barycentricCoordinates(ballPos, triangleSurfaces[i], triangleSurfaces[i+1], triangleSurfaces[i+2]);
         if(baryc.getX() >= 0 && baryc.getY() >= 0 && (baryc.getY() + baryc.getX()) <= 1){
             // Formula(6.2) from .pdf
-            normal = vec3::cross((surface[i+1] - surface[i]),(surface[i*2] - surface[i]));
+            normal = vec3::cross((triangleSurfaces[i+2] - triangleSurfaces[i]),(triangleSurfaces[i+1] - triangleSurfaces[i]));
+            normal.normalize();
             break;
         }
     }

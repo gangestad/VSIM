@@ -52,6 +52,7 @@ vec3 OctahedronBall::velocity() const
 // Forsøk på implementasjon av formel (7)
 // Beregne akselerasjonsvektor til ballen
 void OctahedronBall::calculateVelocity(vec3 normal){
+    vec3 N = normalø * vec3::dot
     mVelocity = vec3(normal.x * normal.z, normal.y*normal.z, pow(2, normal.z)-1) * gsl::GRAVITY;
     mVelocity = mVelocity - gsl::GRAVITY * 0.016;
 }
