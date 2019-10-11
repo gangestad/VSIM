@@ -51,8 +51,11 @@ vec3 OctahedronBall::velocity() const
 // Algoritme: Simulering av rullende ball - Ballsimulering.pdf
 // Forsøk på implementasjon av formel (7)
 // Beregne akselerasjonsvektor til ballen
-void OctahedronBall::calculateVelocity(vec3 normal){
-    vec3 N = normalø * vec3::dot
+void OctahedronBall::calculateVelocity(vec3 normal, vec3 trianglePos){
+    vec3 N = normal * vec3::dot(-gsl::GRAVITY, normal);
+    vec3 distanceToTriangle = vec3::dot(trianglePos - getPosition(), normal);
+
+
     mVelocity = vec3(normal.x * normal.z, normal.y*normal.z, pow(2, normal.z)-1) * gsl::GRAVITY;
     mVelocity = mVelocity - gsl::GRAVITY * 0.016;
 }
