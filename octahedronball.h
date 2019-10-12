@@ -11,8 +11,6 @@ private:
     int m_rekursjoner;
     int m_indeks; // brukes i rekursjon, til å bygge m_vertices
     float mRadius;
-
-
     void createTriangle(const vec3 &v1, const vec3 &v2, const vec3 &v3);
     void subDivide(const vec3 &a, const vec3 &b, const vec3 &c, int n);
     void octahedronUnitBall();
@@ -22,7 +20,5 @@ public:
     void init();
     void draw();
     float radius() const;
-    vec3 velocity() const;
-    void update(vec3 normal, vec3 position);
 };
 #endif

@@ -22,8 +22,7 @@ vec3 RollingBall::velocity() const{
 
 void RollingBall::calculateVelocity(vec3 normal, vec3 vectorToTriangle)
 {
-
-        vec3 N = normal * vec3::dot(gravity, normal);
+        vec3 N = normal * vec3::dot(-gravity, normal);
         float distanceToTriangle = vec3::dot(getPosition() - vectorToTriangle, normal);
 
         if(distanceToTriangle > radius()){

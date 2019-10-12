@@ -1,6 +1,4 @@
 #include "octahedronball.h"
-#include "octahedronball.h"
-#include "octahedronball.h"
 #include <gsl_math.h>
 #include <cmath>
 #include <iostream>
@@ -156,4 +154,9 @@ void OctahedronBall::draw()
 {
     glBindVertexArray(mVAO);
     glDrawArrays(GL_TRIANGLES, 0, mVertices.size());
+}
+
+float OctahedronBall::radius() const
+{
+    return mRadius;
 }

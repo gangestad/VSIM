@@ -146,8 +146,7 @@ void RenderWindow::render() {
         }
         object->draw();
         if(TriangleSurface *obj = dynamic_cast<TriangleSurface *>(object)){
-            auto [normal, position] = col->getBallNormal(pawn->getPosition(), obj);
-            pawn->update(normal, position);
+            pawn->update(obj);
         }
     }
 

@@ -11,6 +11,7 @@ public:
     RollingBall();
     vec3 velocity() const;
     void update(TriangleSurface *obj);
+
 private:
     vec3 mVelocity{0};
     vec3 lastNormal;
