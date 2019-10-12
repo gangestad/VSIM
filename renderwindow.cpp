@@ -16,6 +16,8 @@
 #include <QTimer>
 #include "collision.h"
 #include "octahedronball.h"
+#include "rollingball.h"
+
 
 RenderWindow::RenderWindow(const QSurfaceFormat &format, MainWindow *mainWindow)
     : mContext(nullptr), mInitialized(false), mMainWindow(mainWindow) {
@@ -101,16 +103,27 @@ void RenderWindow::init() {
 
     pawn = new RollingBall();
     mVisualObjects.push_back(pawn);
-    pawn->move(vec3(1.2, 10.5, 1));
+    pawn->move(vec3(1.2, 6.5, 1));
 
     col = new Collision();
 
     TriangleSurface *mSurface = new TriangleSurface("../VSIM/Assets/triangles.txt");
+    mSurface->move(vec3(-2,3,-2));
+    mSurface->rotate(vec3(0,0,30));
+    mSurface->scale(5);
     mVisualObjects.push_back(mSurface);
+
+    TriangleSurface *mAnotherSurface = new TriangleSurface("../VSIM/Assets/triangles.txt");
+    mAnotherSurface->move(vec3(6.5, -4, -2));
+    mAnotherSurface->scale(5);
+    mVisualObjects.push_back(mAnotherSurface);
+
 
     //********************** Set up camera **********************
     mCurrentCamera = new Camera();
-    mCurrentCamera->setPosition(gsl::Vector3D(-0.5f, -3.5f, 3.f));
+    mCurrentCamera->setPosition(gsl::Vector3D(-3.0f, -5.5f, 10.f));
+    mCurrentCamera->yaw(-1.5);
+    mCurrentCamera->pitch(-30.0);
     for (VisualObject *object : mVisualObjects) {
         object->init();
     }
@@ -145,8 +158,8 @@ void RenderWindow::render() {
             glUniformMatrix4fv(mMatrixUniform0, 1, GL_TRUE, object->getModelMatrix().constData());
         }
         object->draw();
-        if(TriangleSurface *obj = dynamic_cast<TriangleSurface *>(object)){
-            pawn->update(obj);
+        if(TriangleSurface *tri = dynamic_cast<TriangleSurface *>(object)){
+            pawn->update(tri);
         }
     }
 

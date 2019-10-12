@@ -17,7 +17,7 @@ private:
     vec3 lastNormal;
     vec3 mAcceleration{0};
     float mSpeed{0.016f};
-    vec3 gravity{0.0f, -9.81f, 0.0f};
+    vec3 gravity{0, -9.81, 0};
 
     void calculateVelocity(vec3 normal, vec3 distanceToTriangle);
     Collision *col;
