@@ -33,7 +33,7 @@ private:
     gsl::Vector3D mUp{0.f, 1.f, 0.f};
 
     gsl::Vector3D mPosition{0.f, 0.f, 0.f};
-    float mPitch{0.f};
+    float mPitch{50.f};
     float mYaw{0.f};
 
     gsl::Matrix4x4 mYawMatrix;

@@ -1,21 +1,24 @@
 #ifndef RENDERWINDOW_H
 #define RENDERWINDOW_H
 
-#include <QWindow>
+#include "camera.h"
+#include "input.h"
+#include "matrix4x4.h"
+#include "texture.h"
+#include "visualobject.h"
+#include <QElapsedTimer>
 #include <QOpenGLFunctions_4_1_Core>
 #include <QTimer>
-#include <QElapsedTimer>
+#include <QWindow>
 #include <vector>
-#include "texture.h"
-#include "camera.h"
-#include "matrix4x4.h"
-#include "visualobject.h"
-#include "input.h"
-
+#include "octahedronball.h"
+#include "rollingball.h"
+#include "collision.h"
 class QOpenGLContext;
 class Shader;
+class TriangleSurface;
 class MainWindow;
-
+typedef gsl::Vector3D vec3;
 /// This inherits from QWindow to get access to the Qt functionality and
 /// OpenGL surface.
 /// We also inherit from QOpenGLFunctions, to get access to the OpenGL functions
@@ -34,17 +37,37 @@ public:
 
     void checkForGLerrors();
 
+    bool detectPlayer();
 private slots:
     void render();
 
 private:
+    // Player variables
+    TriangleSurface *mPlayer;
+    float mPlayerSpeed{3.f};
+    gsl::Vector3D mDesiredVelocity{0, 0, 0};
+    void calculateKeyInputs();
+    bool playerCaught{false};
+    std::vector<gsl::Vector3D> mSurfacePoints;
+
+    RollingBall *pawn;
+    Collision *col;
+
+    TriangleSurface *mNPC;
+    float mNPCSpeed{1.5};
+    unsigned int curNode{1};
+    gsl::Vector3D startLoc;
+    std::vector<gsl::Vector3D> bezierPoints;
+    float t{0};
+    bool dir = true;
+
     void init();
     void setCameraSpeed(float value);
 
     QOpenGLContext *mContext{nullptr};
     bool mInitialized{false};
 
-    Texture *mTexture[4]{nullptr}; //We can hold 4 textures
+    Texture *mTexture[4]{nullptr};      //We can hold 4 textures
     Shader *mShaderProgram[4]{nullptr}; //We can hold 4 shaders
 
     void setupPlainShader(int shaderIndex);
@@ -58,7 +81,7 @@ private:
     GLint pMatrixUniform1{-1};
     GLint mTextureUniform{-1};
 
-    std::vector<VisualObject*> mVisualObjects;
+    std::vector<VisualObject *> mVisualObjects;
 
     Camera *mCurrentCamera{nullptr};
 
@@ -70,12 +93,12 @@ private:
     int mMouseXlast{0};
     int mMouseYlast{0};
 
-    QTimer *mRenderTimer{nullptr};  //timer that drives the gameloop
-    QElapsedTimer mTimeStart;       //time variable that reads the actual FPS
+    QTimer *mRenderTimer{nullptr}; //timer that drives the gameloop
+    QElapsedTimer mTimeStart;      //time variable that reads the actual FPS
 
     float mAspectratio{1.f};
 
-    MainWindow *mMainWindow{nullptr};    //points back to MainWindow to be able to put info in StatusBar
+    MainWindow *mMainWindow{nullptr}; //points back to MainWindow to be able to put info in StatusBar
 
     class QOpenGLDebugLogger *mOpenGLDebugLogger{nullptr};
 
@@ -84,6 +107,14 @@ private:
     void startOpenGLDebugger();
 
     void handleInput();
+
+    void consumeMovementInput(float deltaTime);
+
+    void moveAlongLine(float deltaTime);
+
+    void chasePlayer();
+
+    vec3 barycentricCoordinates(const vec3 &pointA, const vec3 &pointB, const vec3 &pointC);
 
 protected:
     //The QWindow that we inherit from has these functions to capture
